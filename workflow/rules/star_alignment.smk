@@ -9,19 +9,19 @@ rule star_alignment:
     conda:
         "../envs/star.yaml"
     input:
-        R1 = 'samples/{samid_paired}_1.fastq',
-        R2 = 'samples/{samid_paired}_2.fastq',
-        genome = config['indexes']['star']
+        R1 = "samples/{samid_paired}_1.fastq",
+        R2 = "samples/{samid_paired}_2.fastq",
+        genome = config["indexes"]["star"]
     output:
         aligned_bam = "results/star_alignment/{samid_paired}/{samid_paired}_GDC38.Aligned.out.bam"
     params:
         out_prefix="results/star_alignment/{samid_paired}/{samid_paired}_GDC38.",
-        outFilterMultimapNmax=config['outFilterMultimapNmax'],
-        winAnchorMultimapNmax=config['winAnchorMultimapNmax']
-    threads: config['star_alignment_threads']
+        outFilterMultimapNmax=config["outFilterMultimapNmax"],
+        winAnchorMultimapNmax=config["winAnchorMultimapNmax"]
+    threads: config["star_alignment_threads"]
     benchmark: "benchmarks/star_alignment/{samid_paired}_star_alignment.tsv"
     shell:
-        '''
+        """
         STAR\
             --runThreadN {threads}\
             --genomeDir {input.genome}\
@@ -34,4 +34,4 @@ rule star_alignment:
             --outFilterMultimapNmax {params.outFilterMultimapNmax}\
             --winAnchorMultimapNmax {params.winAnchorMultimapNmax}\
             --outSAMunmapped Within KeepPairs
-        '''
+        """

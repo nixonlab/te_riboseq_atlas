@@ -18,13 +18,13 @@ min_version("6.4.1")
 from snakemake.exceptions import RuleException
 
 wildcard_constraints:
-    runid = 'SRR[0-9]{6,9}', # runid must start with 'SRR', followed by 6-9 digits
-    samid = 'SAMN[0-9]{6,9}'  # samid must start with 'GSM', followed by 6-9 digits
+    runid = "SRR[0-9]{6,9}", # runid must start with "SRR", followed by 6-9 digits
+    samid = "SAMN[0-9]{6,9}"  # samid must start with "GSM", followed by 6-9 digits
 
 # config file
 configfile: "config/config.yaml"
 
-with open("config/samples.csv", 'r') as csvfile:
+with open("config/samples.csv", "r") as csvfile:
     dialect = csv.Sniffer().sniff(csvfile.read(1024))
     csvfile.seek(0)
     METADATA = [row for row in csv.DictReader(csvfile)]
@@ -33,26 +33,26 @@ single = [d for d in METADATA if d["LibraryLayout"] == "SINGLE"]
 paired = [d for d in METADATA if d["LibraryLayout"] == "PAIRED"]
 
 # all samples
-SAMPLES = [d[config['colname_SAMPLE']] for d in METADATA]
-RUNS = [d[config['colname_RUN']] for d in METADATA]
+SAMPLES = [d[config["colname_SAMPLE"]] for d in METADATA]
+RUNS = [d[config["colname_RUN"]] for d in METADATA]
 
 # samples for paired (RNA-seq)
-SAMPLES_PAIRED = [d[config['colname_SAMPLE']] for d in paired]
-RUNS_PAIRED = [d[config['colname_RUN']] for d in paired]
+SAMPLES_PAIRED = [d[config["colname_SAMPLE"]] for d in paired]
+RUNS_PAIRED = [d[config["colname_RUN"]] for d in paired]
 
 # samples for single (RIBO-seq)
-SAMPLES_SINGLE = [d[config['colname_SAMPLE'] for d in single]
-RUNS_SINGLE = [d[config['colname_RUN'] for d in single]
+SAMPLES_SINGLE = [d[config["colname_SAMPLE"] for d in single]
+RUNS_SINGLE = [d[config["colname_RUN"] for d in single]
 
 # Connecting samples to runs (paired)
 SAMPLE_RUN_PAIRED = defaultdict(list)
 for d in paired:
-    SAMPLE_RUN_PAIRED[d[config['colname_SAMPLE']]].append(d[config['colname_RUN']])
+    SAMPLE_RUN_PAIRED[d[config["colname_SAMPLE"]]].append(d[config["colname_RUN"]])
 
 # Connecting samples to runs (single)
 SAMPLE_RUN_SINGLE = defaultdict(list)
 for d in single:
-    SAMPLE_RUN_SINGLE[d[config['colname_SAMPLE']]].append(d[config['colname_RUN']])
+    SAMPLE_RUN_SINGLE[d[config["colname_SAMPLE"]]].append(d[config["colname_RUN"]])
 
 rule all:
     input:
@@ -60,8 +60,10 @@ rule all:
 
 # Rules to include
 include: "rules/references.smk"
-include: "rules/download_fastq.smk"
-include: "rules/fastqc.smk"
+include: "rules/fasterq_dump.smk"
 include: "rules/star_index.smk"
+include: "rules/star_index_hervquant.smk"
 include: "rules/star_alignment.smk"
+include: "rules/star_alignment_hervquant.smk"
 include: "rules/telescope.smk"
+#include: "rules/herv_quant.smk"

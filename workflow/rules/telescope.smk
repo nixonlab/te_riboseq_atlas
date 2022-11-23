@@ -13,7 +13,7 @@ rule telescope:
     benchmark: "benchmarks/telescope/{samid}_telescope.tsv"
     log:
         "results/telescope/{samid}/telescope.log"
-    threads: config['telescope_threads']
+    threads: config["telescope_threads"]
     params:
         outdir = "results/telescope/{samid}",
         exp_tag = "{samid}"
@@ -30,3 +30,8 @@ rule telescope:
          2>&1 | tee {log[0]}
         chmod 660 {output[0]}
         """
+
+rule complete:
+    input:
+        expand("results/telescope/{samid_paired}_completed.txt", samid_paired=SAMPLES_PAIRED),
+        expand("results/telescope/{samid_single}_completec.txt", samid_single=SAMPLES_SINGLE)
