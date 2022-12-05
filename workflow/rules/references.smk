@@ -19,6 +19,24 @@ curl -L {params.url} > {output[0]}
 echo {params.md5}  {output[0]} | md5sum -c -
         '''
 
+
+########################### DOWNLOAD HERVQUANT REFS ############################
+
+rule download_hervquant:
+    output:
+        'databases/remotefiles/hervquant_final_reference.fa',
+        'databases/remotefiles/hervquant_hg19_reference.fa'
+    params:
+        hervquant_final_reference = config['downloads_hervquant']['hervquant_final_reference.fa']['url'],
+        hervquant_hg19_reference = config['downloads_hervquant']['hervquant_hg19_reference.fa']['url']
+    shell:
+        '''
+        wget {params.hervquant_final_reference} > databases/remotefiles/hervquant-reference-file.zip
+        wget {params.hervquant_hg19_reference} > databases/remotefiles/hervquant_hg19_reference.fa_.zip
+        unzip databases/remotefiles/hervquant-reference-file.zip
+        unzip databases/remotefiles/hervquant_hg19_reference.fa_.zip
+        '''
+
 ################################# EXTRACT REFS #################################
 
 rule extract_genome:

@@ -12,7 +12,7 @@ wildcard_constraints:
 
 configfile: "config/config.yaml"
 
-with open(config['sra_run_table'], 'r') as csvfile:
+with open(config['sample_csv'], 'r') as csvfile:
     dialect = csv.Sniffer().sniff(csvfile.read(1024))
     csvfile.seek(0)
     METADATA = [row for row in csv.DictReader(csvfile)]
@@ -33,4 +33,4 @@ include: "rules/references.smk"
 include: "rules/star_index.smk"
 include: "rules/star_alignment.smk"
 include: "rules/telescope.smk"
-include: "rules/sample_complete.smk"
+# include: "rules/sample_complete.smk"

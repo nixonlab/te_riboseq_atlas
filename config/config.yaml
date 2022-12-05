@@ -33,6 +33,8 @@ sequences:
     genome: "databases/sequences/gdc38.fna"
     genome_idx: "databases/sequences/gdc38.fna.fai"
     genome_dict: "databases/sequences/gdc38.dict"
+    hervquant_final: "databases/remotefiles/hervquant_final_reference.fa"
+    hervquant_hg19: "databases/remotefiles/hervquant_hg19_reference.fa"
 
 indexes:
     star: "databases/indexes/STAR_gdc38_gencode38"

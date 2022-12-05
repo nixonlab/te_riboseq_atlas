@@ -23,14 +23,14 @@ rule fasterq_dump:
 
 rule cat_runids_to_samples_single:
     input:
-        single = lambda wc: expand("runs/{s}/{s}.fastq", s=SAMPLE_RUN_SINGLE[wc.samid]) # input fastqs per run
+        single = lambda wc: expand("runs/{s}/{s}.fastq", s=SAMPLE_RUN[wc.samid]) # input fastqs per run
     output:
         single = temp("samples/{samid}.fastq") # output fastqs per sample
     shell:
         """
-        cat {input.single} > {output.single} 
+        cat {input.single} > {output.single}
         """
 
 rule conversion_complete:
     input:
-        expand("samples/{samid}.fastq", samid_single=SAMPLES)
+        expand("samples/{samid}.fastq", samid=SAMPLES)

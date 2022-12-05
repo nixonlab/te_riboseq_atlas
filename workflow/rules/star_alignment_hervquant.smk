@@ -9,7 +9,7 @@ rule star_alignment:
     conda:
         "../envs/star.yaml"
     input:
-        single = "samples/{samid}.fastq.gz",
+        single = "samples/{samid}.fastq",
         genome = config['indexes']['star_hervquant']
     output:
         aligned_bam = "results/star_alignment/{samid}/{samid}_STAR_hervquant_hg19.Aligned.out.bam"
