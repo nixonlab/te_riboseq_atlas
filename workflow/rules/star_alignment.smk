@@ -9,23 +9,22 @@ rule star_alignment:
     conda:
         "../envs/star.yaml"
     input:
-        R1 = "samples/{samid_paired}_1.fastq",
-        R2 = "samples/{samid_paired}_2.fastq",
-        genome = config["indexes"]["star"]
+        single = "samples/{samid}.fastq",
+        genome = config['indexes']['star']
     output:
-        aligned_bam = "results/star_alignment/{samid_paired}/{samid_paired}_GDC38.Aligned.out.bam"
+        aligned_bam = "results/star_alignment/{samid}/{samid}_GDC38.Aligned.out.bam"
     params:
-        out_prefix="results/star_alignment/{samid_paired}/{samid_paired}_GDC38.",
-        outFilterMultimapNmax=config["outFilterMultimapNmax"],
-        winAnchorMultimapNmax=config["winAnchorMultimapNmax"]
-    threads: config["star_alignment_threads"]
-    benchmark: "benchmarks/star_alignment/{samid_paired}_star_alignment.tsv"
+        out_prefix="results/star_alignment/{samid}/{samid}_GDC38.",
+        outFilterMultimapNmax=config['outFilterMultimapNmax'],
+        winAnchorMultimapNmax=config['winAnchorMultimapNmax']
+    threads: config['star_alignment_threads']
+    benchmark: "benchmarks/star_alignment/{samid}_star_alignment.tsv"
     shell:
-        """
+        '''
         STAR\
             --runThreadN {threads}\
             --genomeDir {input.genome}\
-            --readFilesIn {input.R1} {input.R2}\
+            --readFilesIn {input.single}\
             --outSAMattributes NH HI NM MD AS XS\
             --outSAMtype BAM Unsorted\
             --outFileNamePrefix {params.out_prefix}\
@@ -34,4 +33,4 @@ rule star_alignment:
             --outFilterMultimapNmax {params.outFilterMultimapNmax}\
             --winAnchorMultimapNmax {params.winAnchorMultimapNmax}\
             --outSAMunmapped Within KeepPairs
-        """
+        '''

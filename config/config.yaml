@@ -1,14 +1,9 @@
- sample list (generated using config/format_samples.py)
-sample_csv: "config/samples.csv"
+sample_csv: "config/samples_riboseq.csv"
 
 # Column names for sample and run
 colname_SAMPLE: "BioSample"
 colname_RUN: "Run"
 colname_library: "LibraryLayout"
-
-# Location for SRA URL.
-# Typical options are "ncbi", "s3.us-east-1", "gs.US", etc.
-sra_location: "ncbi"
 
 # assigned temporary directory
 local_tmp: "$TMPDIR"
@@ -27,6 +22,8 @@ downloads:
   retro.hg38.v1.tsv.gz:
     url: "https://github.com/mlbendall/telescope_annotation_db/raw/master/builds/retro.hg38.v1/genes.tsv.gz"
     md5: "b3ca6d3705d030742255d216e25dfc1d"
+
+downloads_hervquant:
   hervquant_final_reference.fa:
     url: "https://unclineberger.org/vincentlab/wp-content/uploads/sites/1083/2020/10/hervquant-reference-file.zip"
   hervquant_hg19_reference.fa:

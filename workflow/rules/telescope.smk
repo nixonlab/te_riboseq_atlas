@@ -31,7 +31,8 @@ rule telescope:
         chmod 660 {output[0]}
         """
 
-rule complete:
+rule telescope_complete:
     input:
-        expand("results/telescope/{samid_paired}_completed.txt", samid_paired=SAMPLES_PAIRED),
-        expand("results/telescope/{samid_single}_completec.txt", samid_single=SAMPLES_SINGLE)
+        rules.telescope.output
+    output:
+        touch("results/telescope/{samid}_telescope_completed.txt")
