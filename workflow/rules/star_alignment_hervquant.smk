@@ -1,18 +1,16 @@
 #! /usr/bin/env python
 # -*- coding utf-8 -*-
 
-# Add quant mode for gene TE_counts
-# Make sure that star runs with stringtie
 ################################ STAR ALIGNMENT ################################
 
-rule star_alignment:
+rule star_alignment_hervquant:
     conda:
-        "../envs/star.yaml"
+        "../envs/star_hervquant.yaml"
     input:
         single = "samples/{samid}.fastq",
         genome = config['indexes']['star_hervquant']
     output:
-        aligned_bam = "results/star_alignment/{samid}/{samid}_STAR_hervquant_hg19.Aligned.out.bam"
+        aligned_bam = temp("results/star_alignment/{samid}/{samid}_STAR_hervquant_hg19.Aligned.out.sam")
     params:
         out_prefix="results/star_alignment/{samid}/{samid}_STAR_hervquant_hg19.",
         outFilterMultimapNmax=10,

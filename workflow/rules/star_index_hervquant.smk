@@ -18,6 +18,8 @@ STAR\
  --runMode genomeGenerate\
  --genomeDir {output[0]}\
  --genomeSAindexNbases 7\
+ --genomeChrBinNbits 8\
  --outFileNamePrefix {output[0]}\
  --genomeFastaFiles {input.fasta}\
+ --limitGenomeGenerateRAM 54000000000
         '''
