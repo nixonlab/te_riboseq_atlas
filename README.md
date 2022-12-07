@@ -50,4 +50,4 @@ For a full list of reference genomes used, please refer to the config.yaml file.
 
 **To modify pipeline:**
 
-Change sample download table. 
+Change sample download table, or change the reference genomes in the config.
