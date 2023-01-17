@@ -39,6 +39,7 @@ rule target:
 include: "rules/fasterq_dump.smk"
 include: "rules/references.smk"
 include: "rules/star_index.smk"
+include: "rules/ribo_detector.smk"
 include: "rules/star_alignment.smk"
 include: "rules/telescope.smk"
 include: "rules/star_index_hervquant.smk"
