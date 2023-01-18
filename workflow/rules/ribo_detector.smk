@@ -14,8 +14,9 @@ rule ribo_detector:
     benchmark: "benchmarks/ribo_detector/{samid}_ribo_detector.tsv"
     shell:
         '''
-        ribodetector -t 20 \
+        ribodetector_cpu -t 20 \
         -l 30 \
+	--chunk_size 256 \
         -i {input.single} \
         -o {output.ribo_fastq}
         '''
