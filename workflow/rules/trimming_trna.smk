@@ -26,6 +26,8 @@ rule bowtie_build:
         fasta="custom_databases/tRNA_rRNA_hg19_ND.fa"
     output:
         directory=directory("databases/indexes/tRNArRNAref")
+    params:
+        prefix = "databases/indexes/tRNArRNAref/tRNArRNAref"
     shell:
         '''
         bowtie2-build {input.fasta} {output.directory}
