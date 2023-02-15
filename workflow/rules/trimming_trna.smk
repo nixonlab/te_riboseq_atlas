@@ -43,9 +43,11 @@ rule bowtie_align:
         ref="databases/indexes/tRNArRNAref"
     output:
         fasta= temp("samples/{samid}_noribo_notrna_trimmed.fastq")
+    params:
+        prefix = "databases/indexes/tRNArRNAref/tRNArRNAref"
     threads: 8
     benchmark: "benchmarks/bowtie/{samid}_noribo_notrna_trimmed.tsv"
     shell:
         '''
-        bowtie2 --phred33 --very-sensitive-local -p 8 --quiet -x {input.ref} -U {input.fasta} --un {output.fasta}
+        bowtie2 --phred33 --very-sensitive-local -p 8 --quiet -x {params.prefix} -U {input.fasta} --un {output.fasta}
         '''
