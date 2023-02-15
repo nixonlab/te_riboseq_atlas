@@ -23,7 +23,7 @@ rule bowtie_build:
     conda:
         "../envs/bowtie.yaml"
     input:
-        fasta="databases/remotefiles/tRNA_rRNA_hg19_ND.fa"
+        fasta="custom_databases/tRNA_rRNA_hg19_ND.fa"
     output:
         directory=directory("databases/indexes/tRNArRNAref")
     shell:
