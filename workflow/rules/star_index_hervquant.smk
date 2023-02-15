@@ -9,7 +9,7 @@ rule star_index_hervquant_hg19:
     output:
         directory("databases/indexes/STAR_hervquant_hg19"),
         "databases/indexes/STAR_hervquant_hg19/SAindex"
-    conda: "../envs/star_hervquant.yaml"
+    conda: "../envs/star.yaml"
     threads: snakemake.utils.available_cpu_count()
     shell:
         '''

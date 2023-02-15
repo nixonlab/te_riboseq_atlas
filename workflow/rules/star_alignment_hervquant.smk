@@ -5,7 +5,7 @@
 
 rule star_alignment_hervquant:
     conda:
-        "../envs/star_hervquant.yaml"
+        "../envs/star.yaml"
     input:
         single = "samples/{samid}_noribo.fastq",
         genome = config['indexes']['star_hervquant']
